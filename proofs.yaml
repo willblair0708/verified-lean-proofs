@@ -1,0 +1,25 @@
+# Machine-readable index of the verified proofs hosted in this repo.
+#
+# Consumed by willblair0708/erdos-fc-sync as a proof *source* (alongside
+# plby/lean-proofs and Jayyhk/erdos-lean): when this repo hosts a clean proof
+# for a problem that Formal Conjectures does not yet link, the sync surfaces it
+# as a contribution target.
+#
+# `axioms_clean: true` is enforced by scripts/check_axioms.sh on every push.
+repo: willblair0708/verified-lean-proofs
+toolchain: leanprover/lean4:v4.29.1
+mathlib: v4.29.1
+
+proofs:
+  - problem: 154
+    source: erdosproblems
+    file: ErdosProblems/Erdos154Sumset.lean
+    theorem: Erdos154.erdos_154_sumset
+    statement: >-
+      For Sidon sets A with |A| ~ N^{1/2}, the sumset A+A is equidistributed
+      over residue classes mod m: each class holds ~1/m of A+A.
+    depends_on:
+      - "ErdosProblems/Erdos154.lean (Lindström residue distribution for A; formal authors Aristotle and Wouter van Doorn, via plby/lean-proofs)"
+    axioms_clean: true
+    fc_target: FormalConjectures/ErdosProblems/154.lean
+    fc_pr: https://github.com/google-deepmind/formal-conjectures/pull/4340

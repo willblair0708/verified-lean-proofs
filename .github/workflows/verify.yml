@@ -1,0 +1,26 @@
+name: verify
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+# A green run is a standing guarantee: every hosted proof compiles against the
+# pinned Mathlib and depends only on [propext, Classical.choice, Quot.sound].
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Installs elan from lean-toolchain, restores the Mathlib cache, runs `lake build`.
+      - uses: leanprover/lean-action@v1
+        with:
+          use-mathlib-cache: true
+
+      - name: Axiom audit (no sorry, kernel axioms only)
+        run: bash scripts/check_axioms.sh
+
+      - name: Manifest is in sync
+        run: bash scripts/check_manifest.sh
